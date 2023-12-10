@@ -1,6 +1,6 @@
 
 
 export type ITask = {
-   id: string;
+   id?: string;
    text: string;
 }

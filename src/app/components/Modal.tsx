@@ -6,8 +6,8 @@ type ModalProps = {
   modalOpen: boolean;
   handleCloseModal: () => void;
   taskValue: string;
-  handleChange: (e: InputHTMLAttributes<HTMLInputElement>) => void;
-  handleSubmitNewTodo: any
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmitNewTodo: React.FormEventHandler<HTMLFormElement>;
   isEditing?:boolean;
 }
 

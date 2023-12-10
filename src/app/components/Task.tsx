@@ -36,7 +36,7 @@ export const Task = ({ task, updateTask, deleteTask }: TaskProps) => {
 }
 
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTaskToEdit(e.target.value)
   }
 

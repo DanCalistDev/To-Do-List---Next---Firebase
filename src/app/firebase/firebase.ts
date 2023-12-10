@@ -2,7 +2,7 @@ import {initializeApp} from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseApp = initializeApp({
-    apiKey: "AIzaSyAlq73XmqUOhxir4N-k8vo9LAGgGq7OMQY",
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "plancalist.firebaseapp.com",
     projectId: "plancalist",
 });

@@ -3,14 +3,16 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { Modal } from "./Modal";
 import { FormEventHandler, useState } from "react";
+import { ITask } from "../types/tasks";
 
-export const AddTask = ({addTask}) => {
+
+export const AddTask = ({addTask}: {addTask: (task: ITask) => void}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [newTaskValue, setNewTaskValue] = useState<string>("");
 
   const handleSubmitNewTodo : FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const newTodo = {
+    const newTodo : ITask= {
       text: newTaskValue
     };
     addTask(newTodo);
@@ -27,7 +29,7 @@ export const AddTask = ({addTask}) => {
     setModalOpen(false);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTaskValue(e.target.value)
   }
 

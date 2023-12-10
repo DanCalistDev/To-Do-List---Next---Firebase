@@ -12,33 +12,35 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import db from "./firebase/firebase";
+import { ITask } from "./types/tasks";
 
 export default function Home() {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ITask[]>([]);
   const tasksFirebase = collection(db, "Tarefas");
 
 
   useEffect(() => {
     const unsubscribe = onSnapshot(tasksFirebase, (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as ITask));
       setData(data);
     });
     return () => unsubscribe();
   }, []);
 
-  const addTodo = async (newTask) => {
-    const docRef = await addDoc(collection(db, "Tarefas"), newTask);
-    return { id: docRef.id, ...newTask };
+  const addTodo = async (newTask: ITask) => {
+    await addDoc(collection(db, "Tarefas"), newTask);
   };
 
-  const update = async (taskToEdit) => {
-    const docRef = doc(db, "Tarefas", taskToEdit.id);
-    await updateDoc(docRef, taskToEdit);
+  const update = async (taskToEdit: ITask) => {
+    if (taskToEdit.id) {
+      const docRef = doc(db, "Tarefas", taskToEdit.id);
+      await updateDoc(docRef, taskToEdit);
+    }
     return taskToEdit;
   };
 
-  const remove = async (taskId) => {
+  const remove = async (taskId: string) => {
     const docRef = doc(db, "Tarefas", taskId);
     await deleteDoc(docRef);
   };
